@@ -1,0 +1,7 @@
+{
+  "devDependencies": {
+    "babel-preset-react": "^6.23.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
+  }
+}
