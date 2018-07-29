@@ -6,14 +6,14 @@ const path = require('path');
 const fs = require('fs-extra');
 const _ = require('lodash');
 
-const templateDir = path.join(__dirname, 'templates');
+const templateDir = path.join(__dirname, '..', 'templates');
 const basePackageJson = require(path.join(templateDir, '_base', 'package.json'));
 
 const preset = process.argv[2];
 
 if (preset === 'react') {
     createPackageJson(_.merge(basePackageJson, require(path.join(templateDir, 'react', 'package.json'))));
-    fs.copySync(path.join(__dirname, './templates/_base/assets'), path.resolve('./assets'));
+    fs.copySync(path.join(templateDir, '_base', 'assets'), path.resolve('./assets'));
     copyTemplate(preset)
 }
 
