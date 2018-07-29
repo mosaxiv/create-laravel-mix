@@ -1,22 +1,25 @@
+#!/usr/bin/env node
 'use strict';
 
 const os = require('os');
 const path = require('path');
 const fs = require('fs-extra');
 const _ = require('lodash');
-const basePackageJson = require('./templates/_base/package');
+
+const templateDir = path.join(__dirname, 'templates');
+const basePackageJson = require(path.join(templateDir, '_base', 'package.json'));
 
 const preset = process.argv[2];
 
 if (preset === 'react') {
-    createPackageJson(_.merge(basePackageJson, require('./templates/react/package')));
+    createPackageJson(_.merge(basePackageJson, require(path.join(templateDir, 'react', 'package.json'))));
     fs.copySync(path.join(__dirname, './templates/_base/assets'), path.resolve('./assets'));
     copyTemplate(preset)
 }
 
 if (preset === 'vue') {
-    createPackageJson(_.merge(basePackageJson, require('./templates/vue/package')));
-    fs.copySync(path.join(__dirname, './templates/_base/assets'), path.resolve('./assets'));
+    createPackageJson(_.merge(basePackageJson, require(path.join(templateDir, 'vue', 'package.json'))));
+    fs.copySync(path.join(templateDir, '_base', 'assets'), path.resolve('./assets'));
     copyTemplate(preset)
 }
 
@@ -29,11 +32,11 @@ function createPackageJson(packageJson) {
 
 function copyTemplate(preset) {
     fs.copySync(
-        path.join(__dirname, `./templates/${preset}/webpack.mix.js`),
+        path.join(templateDir, preset, 'webpack.mix.js'),
         path.resolve('./webpack.mix.js')
     );
 
     fs.copySync(
-        path.join(__dirname, `./templates/${preset}/js`),
+        path.join(templateDir, preset, 'js'),
         path.resolve('./assets/js'));
 }
