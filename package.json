@@ -11,6 +11,8 @@
     "create-laravel-mix": "./bin/create-laravel-mix.js"
   },
   "dependencies": {
+    "chalk": "^2.4.1",
+    "commander": "^2.16.0",
     "fs-extra": "^7.0.0",
     "lodash": "^4.17.10"
   },
