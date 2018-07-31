@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "format": "prettier --single-quote --write ./bin/create-laravel-mix.js"
   },
   "bin": {
     "create-laravel-mix": "./bin/create-laravel-mix.js"
@@ -16,5 +16,7 @@
     "fs-extra": "^7.0.0",
     "lodash": "^4.17.10"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "prettier": "^1.14.0"
+  }
 }
