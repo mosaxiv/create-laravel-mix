@@ -58,3 +58,12 @@ fs.copySync(
     path.join(templateDir, preset, 'js'),
     path.resolve(cwd, 'assets', 'js')
 );
+
+console.log();
+console.log(`Creating a new ${preset} app in ${chalk.green(path.resolve(cwd))}.`);
+console.log();
+console.log('You begin by typing:');
+console.log();
+console.log(`  ${chalk.cyan('npm install')}`);
+console.log('  or');
+console.log(`  ${chalk.cyan('yarn')}`);
