@@ -33,22 +33,28 @@ if (typeof preset === 'undefined' || !['vue', 'react'].includes(preset)) {
 }
 
 const templateDir = path.join(__dirname, '..', 'templates');
-const basePackageJson = require(path.join(templateDir, '_base', 'package.json'));
-const packageJson = _.merge(basePackageJson, require(path.join(templateDir, preset, 'package.json')));
+const packageJson = _.merge(
+    require(path.join(templateDir, '_base', 'package.json')),
+    require(path.join(templateDir, preset, 'package.json'))
+);
+const cwd = process.cwd();
 
 fs.writeFileSync(
-    path.resolve('package.json'),
+    path.resolve(cwd, 'package.json'),
     JSON.stringify(packageJson, null, 2) + os.EOL
 );
 
-fs.copySync(path.join(templateDir, '_base', 'assets'), path.resolve('./assets'));
+fs.copySync(
+    path.join(templateDir, '_base', 'assets'),
+    path.resolve(cwd, 'assets')
+);
 
 fs.copySync(
     path.join(templateDir, preset, 'webpack.mix.js'),
-    path.resolve('./webpack.mix.js')
+    path.resolve(cwd, 'webpack.mix.js')
 );
 
 fs.copySync(
     path.join(templateDir, preset, 'js'),
-    path.resolve('./assets/js')
+    path.resolve(cwd, 'assets', 'js')
 );
