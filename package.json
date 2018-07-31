@@ -1,9 +1,14 @@
 {
   "name": "create-laravel-mix",
   "license": "MIT",
-  "version": "0.0.3",
-  "description": "",
-  "main": "index.js",
+  "version": "1.0.0",
+  "description": "laravel-mix application generator",
+  "keywords": [
+    "laravel-mix",
+    "react",
+    "vue"
+  ],
+  "main": "./bin/create-laravel-mix.js",
   "scripts": {
     "format": "prettier --single-quote --write ./bin/create-laravel-mix.js"
   },
