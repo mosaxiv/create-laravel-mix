@@ -66,7 +66,7 @@ fs.copySync(
 
 replace.sync({
   files: path.resolve(cwd, 'webpack.mix.js'),
-  from: ['##assets##', '##public##'],
+  from: [/##assets##/g, /##public##/g],
   to: [assetsDir, publicDir]
 });
 
