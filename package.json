@@ -1,7 +1,7 @@
 {
   "name": "create-laravel-mix",
   "license": "MIT",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "laravel-mix application generator",
   "keywords": [
     "laravel-mix",
