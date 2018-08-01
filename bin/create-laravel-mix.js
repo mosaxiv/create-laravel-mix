@@ -7,14 +7,17 @@ const fs = require('fs-extra');
 const _ = require('lodash');
 const commander = require('commander');
 const chalk = require('chalk');
+const replace = require('replace-in-file');
 
 let preset;
 
 commander
   .version(require('../package').version)
+  .usage(`${chalk.green('<preset>(vue|react)')} [options]`)
   .arguments('<preset>')
-  .usage(`${chalk.green('preset(vue|react)')}`)
-  .action(name => {
+  .option('--assets-dir <path>', '(default: assets)')
+  .option('--public-dir <path>', '(default: public)')
+  .action((name, options) => {
     preset = name;
   })
   .parse(process.argv);
@@ -38,6 +41,8 @@ const packageJson = _.merge(
   require(path.join(templateDir, preset, 'package.json'))
 );
 const cwd = process.cwd();
+const assetsDir = commander.assetsDir || 'assets';
+const publicDir = commander.publicDir || 'public';
 
 fs.writeFileSync(
   path.resolve(cwd, 'package.json'),
@@ -46,7 +51,12 @@ fs.writeFileSync(
 
 fs.copySync(
   path.join(templateDir, '_base', 'assets'),
-  path.resolve(cwd, 'assets')
+  path.resolve(cwd, assetsDir)
+);
+
+fs.copySync(
+    path.join(templateDir, preset, 'js'),
+    path.resolve(cwd, assetsDir, 'js')
 );
 
 fs.copySync(
@@ -54,10 +64,11 @@ fs.copySync(
   path.resolve(cwd, 'webpack.mix.js')
 );
 
-fs.copySync(
-  path.join(templateDir, preset, 'js'),
-  path.resolve(cwd, 'assets', 'js')
-);
+replace.sync({
+  files: path.resolve(cwd, 'webpack.mix.js'),
+  from: ['##assets##', '##public##'],
+  to: [assetsDir, publicDir]
+});
 
 console.log();
 console.log(
